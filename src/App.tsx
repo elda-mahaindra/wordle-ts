@@ -1,12 +1,30 @@
 // ---------------------------------------------- modules import
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 
 // ---------------------------------------------- the component
-const App: FunctionComponent = () => (
-  <div className="App">
-    <h1>Wordle (Lingo)</h1>
-  </div>
-);
+const App: FunctionComponent = () => {
+  const [solution, setSolution] = useState<null | { id: number; word: string }>(
+    null
+  );
+
+  useEffect(() => {
+    fetch("http://localhost:3001/solutions")
+      .then((res) => res.json())
+      .then((json: { id: number; word: string }[]) => {
+        // random int between 0 and json length
+        const randomSolution = json[Math.floor(Math.random() * json.length)];
+
+        setSolution(randomSolution);
+      });
+  }, [setSolution]);
+
+  return (
+    <div className="App">
+      <h1>Wordle (Lingo)</h1>
+      {solution && <div> Solution : {solution.word}</div>}
+    </div>
+  );
+};
 
 export default App;
 
