@@ -17,8 +17,18 @@ const Wordle: FunctionComponent<IWordleProps> = ({ solution }) => {
   useEffect(() => {
     window.addEventListener("keyup", onKeyup);
 
+    if (isCorrect) {
+      console.log("congrats, you win");
+      window.removeEventListener("keyup", onKeyup);
+    }
+
+    if (turn > 5) {
+      console.log("unlucky, out of guesses");
+      window.removeEventListener("keyup", onKeyup);
+    }
+
     return () => window.removeEventListener("keyup", onKeyup);
-  }, [onKeyup]);
+  }, [isCorrect, turn, onKeyup]);
 
   useEffect(() => {
     console.log(guesses, turn, isCorrect);
