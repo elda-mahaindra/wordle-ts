@@ -8,7 +8,7 @@ import { useWordle } from "./hooks/useWordle";
 // ---------------------------------------------- the component
 const Wordle: FunctionComponent<IWordleProps> = ({ solution }) => {
   // ---------------------------------------------- local state
-  const { currentGuess, onKeyup } = useWordle(solution);
+  const { currentGuess, onKeyup } = useWordle(solution.word);
 
   // ---------------------------------------------- effects
   useEffect(() => {
@@ -18,7 +18,12 @@ const Wordle: FunctionComponent<IWordleProps> = ({ solution }) => {
   });
 
   // ---------------------------------------------- content
-  return <div>current guess - {currentGuess}</div>;
+  return (
+    <>
+      <div>solution - {solution.word}</div>
+      <div>current guess - {currentGuess}</div>
+    </>
+  );
 };
 
 export default Wordle;
