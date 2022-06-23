@@ -1,16 +1,16 @@
 // ---------------------------------------------- modules import
 import { FunctionComponent, useEffect, useState } from "react";
 
+import { ISolution } from "models/solution";
+
 // ---------------------------------------------- the component
 const App: FunctionComponent = () => {
-  const [solution, setSolution] = useState<null | { id: number; word: string }>(
-    null
-  );
+  const [solution, setSolution] = useState<null | ISolution>(null);
 
   useEffect(() => {
     fetch("http://localhost:3001/solutions")
       .then((res) => res.json())
-      .then((json: { id: number; word: string }[]) => {
+      .then((json: ISolution[]) => {
         // random int between 0 and json length
         const randomSolution = json[Math.floor(Math.random() * json.length)];
 
