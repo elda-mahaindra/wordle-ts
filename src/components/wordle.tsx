@@ -1,8 +1,9 @@
 // ---------------------------------------------- modules impor
 import { FunctionComponent, useEffect } from "react";
 
-import { IWordleProps } from "./common";
+import Grid from "./grid";
 
+import { IWordleProps } from "./common";
 import { useWordle } from "./hooks/useWordle";
 
 // ---------------------------------------------- the component
@@ -28,6 +29,7 @@ const Wordle: FunctionComponent<IWordleProps> = ({ solution }) => {
     <>
       <div>solution - {solution.word}</div>
       <div>current guess - {currentGuess}</div>
+      <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
     </>
   );
 };
