@@ -1,14 +1,15 @@
 // ---------------------------------------------- modules import
 import { useState } from "react";
 
-import { IGuess } from "../../models/guess";
-import { ISolution } from "../../models/solution";
+import { Guess, IGuessPair, newGuess } from "../../models/guess";
 
 // ---------------------------------------------- hooks
 export const useWordle = (solutionWord: string) => {
   // ---------------------------------------------- local state
   const [currentGuess, setCurrentGuess] = useState("");
-  const [guesses, setGuesses] = useState<IGuess[]>([]); // each guess is an array
+  const [guesses, setGuesses] = useState<Guess[]>([
+    ...Array(6).map(() => newGuess()),
+  ]); // each guess is an array
   const [history, setHistory] = useState<string[]>([]); // each guess is a string
   const [isCorrect, setIsCorrect] = useState(false);
   const [turn, setTurn] = useState(0);
@@ -18,7 +19,7 @@ export const useWordle = (solutionWord: string) => {
   // e.g. [{key: 'a', color: 'yellow'}]
   const formatGuess = () => {
     const solutionArray: (string | null)[] = Array.from(solutionWord);
-    const formattedGuess = Array.from(currentGuess).map((l) => {
+    const formattedGuess: IGuessPair[] = Array.from(currentGuess).map((l) => {
       return { key: l, color: "grey" };
     });
 
@@ -44,7 +45,32 @@ export const useWordle = (solutionWord: string) => {
   // add a new guess to the guesses state
   // update the isCorrect state if the guess is correct
   // add one to the turn state
-  const addNewGuess = () => {};
+  const addNewGuess = (formattedGuess: IGuessPair[]) => {
+    if (currentGuess === solutionWord) {
+      setIsCorrect(true);
+    }
+
+    setGuesses((prevGuesses) =>
+      prevGuesses.map((guess, index) => {
+        if (index === turn) {
+          return formattedGuess;
+        }
+
+        return guess;
+      })
+    );
+
+    setHistory((prevHistory) => {
+      return [...prevHistory, currentGuess];
+    });
+
+    setTurn((prevTurn) => {
+      return prevTurn + 1;
+    });
+
+    setCurrentGuess("");
+  };
+
   // ---------------------------------------------- handlers
   // handle keyup event & track current guess
   // if user presses enter, add the new guess
@@ -67,8 +93,7 @@ export const useWordle = (solutionWord: string) => {
       }
 
       const formatted = formatGuess();
-      console.log(solutionWord);
-      console.log(formatted);
+      addNewGuess(formatted);
     }
 
     if (key === "Backspace") {
