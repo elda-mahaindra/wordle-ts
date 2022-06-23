@@ -9,7 +9,8 @@ export interface IGridProps {
 }
 
 export interface IRowProps {
-  guess: Guess;
+  guess?: Guess;
+  currentGuess?: string;
 }
 
 export interface IWordleProps {
