@@ -14,6 +14,12 @@ export interface IKeypadProps {
   };
 }
 
+export interface IModalProps {
+  isCorrect: boolean;
+  solutionWord: string;
+  turn: number;
+}
+
 export interface IRowProps {
   guess?: Guess;
   currentGuess?: string;

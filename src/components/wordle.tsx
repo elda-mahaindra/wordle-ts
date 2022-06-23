@@ -1,8 +1,9 @@
 // ---------------------------------------------- modules impor
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 
 import Grid from "./grid";
 import Keypad from "./keypad";
+import Modal from "./modal";
 
 import { IWordleProps } from "./common";
 import { useWordle } from "./hooks/useWordle";
@@ -13,17 +14,20 @@ const Wordle: FunctionComponent<IWordleProps> = ({ solution }) => {
   const { currentGuess, guesses, isCorrect, turn, usedKeys, onKeyup } =
     useWordle(solution.word);
 
+  const [showModal, setShowModal] = useState(false);
+
   // ---------------------------------------------- effects
   useEffect(() => {
     window.addEventListener("keyup", onKeyup);
 
     if (isCorrect) {
+      setTimeout(() => setShowModal(true), 200);
       console.log("congrats, you win");
       window.removeEventListener("keyup", onKeyup);
     }
 
     if (turn > 5) {
-      console.log("unlucky, out of guesses");
+      setTimeout(() => setShowModal(true), 200);
       window.removeEventListener("keyup", onKeyup);
     }
 
@@ -37,13 +41,13 @@ const Wordle: FunctionComponent<IWordleProps> = ({ solution }) => {
   // ---------------------------------------------- content
   return (
     <>
-      <div>solution - {solution.word}</div>
-
-      <div>current guess - {currentGuess}</div>
-
       <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
 
       <Keypad usedKeys={usedKeys} />
+
+      {showModal && (
+        <Modal isCorrect={isCorrect} solutionWord={solution.word} turn={turn} />
+      )}
     </>
   );
 };
