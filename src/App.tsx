@@ -1,7 +1,9 @@
 // ---------------------------------------------- modules import
 import { FunctionComponent, useEffect, useState } from "react";
 
-import { ISolution } from "models/solution";
+import Wordle from "./components/wordle";
+
+import { ISolution } from "./models/solution";
 
 // ---------------------------------------------- the component
 const App: FunctionComponent = () => {
@@ -21,7 +23,7 @@ const App: FunctionComponent = () => {
   return (
     <div className="App">
       <h1>Wordle (Lingo)</h1>
-      {solution && <div> Solution : {solution.word}</div>}
+      {solution && <Wordle solution={solution} />}
     </div>
   );
 };

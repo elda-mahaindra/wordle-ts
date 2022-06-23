@@ -1,8 +1,8 @@
 // ---------------------------------------------- modules import
-import { FunctionComponent, useState } from "react";
+import { useState } from "react";
 
-import { IGuess } from "models/guess";
-import { ISolution } from "models/solution";
+import { IGuess } from "../../models/guess";
+import { ISolution } from "../../models/solution";
 
 // ---------------------------------------------- hooks
 export const useWordle = (solution: ISolution) => {
@@ -25,7 +25,18 @@ export const useWordle = (solution: ISolution) => {
   // ---------------------------------------------- handlers
   // handle keyup event & track current guess
   // if user presses enter, add the new guess
-  const handleKeyup = () => {};
+  const handleKeyup = ({ key }: { key: string }) => {
+    if (key === "Backspace") {
+      setCurrentGuess((prev) => prev.slice(0, -1));
+      return;
+    }
+
+    if (/^[A-Za-z]$/.test(key)) {
+      if (currentGuess.length < 5) {
+        setCurrentGuess((prev) => prev + key);
+      }
+    }
+  };
 
   // ---------------------------------------------- effects
 
