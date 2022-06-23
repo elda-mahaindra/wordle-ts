@@ -19,7 +19,7 @@ const Grid: FunctionComponent<IGridProps> = ({
   return (
     <div>
       {guesses.map((guess, i) => (
-        <Row key={i} />
+        <Row key={i} guess={guess} />
       ))}
     </div>
   );

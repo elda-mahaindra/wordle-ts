@@ -8,6 +8,10 @@ export interface IGridProps {
   turn: number;
 }
 
+export interface IRowProps {
+  guess: Guess;
+}
+
 export interface IWordleProps {
   solution: ISolution;
 }
