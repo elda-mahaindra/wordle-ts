@@ -8,6 +8,12 @@ export interface IGridProps {
   turn: number;
 }
 
+export interface IKeypadProps {
+  usedKeys: {
+    [key: string]: "green" | "grey" | "yellow";
+  };
+}
+
 export interface IRowProps {
   guess?: Guess;
   currentGuess?: string;

@@ -10,9 +10,8 @@ import { useWordle } from "./hooks/useWordle";
 // ---------------------------------------------- the component
 const Wordle: FunctionComponent<IWordleProps> = ({ solution }) => {
   // ---------------------------------------------- local state
-  const { currentGuess, guesses, isCorrect, turn, onKeyup } = useWordle(
-    solution.word
-  );
+  const { currentGuess, guesses, isCorrect, turn, usedKeys, onKeyup } =
+    useWordle(solution.word);
 
   // ---------------------------------------------- effects
   useEffect(() => {
@@ -34,7 +33,7 @@ const Wordle: FunctionComponent<IWordleProps> = ({ solution }) => {
 
       <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
 
-      <Keypad />
+      <Keypad usedKeys={usedKeys} />
     </>
   );
 };
