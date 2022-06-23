@@ -2,6 +2,7 @@
 import { FunctionComponent, useEffect } from "react";
 
 import Grid from "./grid";
+import Keypad from "./keypad";
 
 import { IWordleProps } from "./common";
 import { useWordle } from "./hooks/useWordle";
@@ -28,8 +29,12 @@ const Wordle: FunctionComponent<IWordleProps> = ({ solution }) => {
   return (
     <>
       <div>solution - {solution.word}</div>
+
       <div>current guess - {currentGuess}</div>
+
       <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
+
+      <Keypad />
     </>
   );
 };

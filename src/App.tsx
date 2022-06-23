@@ -7,8 +7,10 @@ import { ISolution } from "./models/solution";
 
 // ---------------------------------------------- the component
 const App: FunctionComponent = () => {
+  // ---------------------------------------------- local state
   const [solution, setSolution] = useState<null | ISolution>(null);
 
+  // ---------------------------------------------- effects
   useEffect(() => {
     fetch("http://localhost:3001/solutions")
       .then((res) => res.json())
@@ -20,6 +22,7 @@ const App: FunctionComponent = () => {
       });
   }, [setSolution]);
 
+  // ---------------------------------------------- content
   return (
     <div className="App">
       <h1>Wordle (Lingo)</h1>
